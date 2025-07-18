@@ -10,21 +10,13 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        int count=1,mid;
-        ListNode temp=head;
-        while(temp!=null){
-            count++;
-            temp=temp.next;
-        }
-        if(count%2==0){
-            mid=(count/2)-1;
-        }else{
-            mid=count/2;
-        }
-        
-        for(int i=1;i<=mid;i++){
-            head=head.next;
-        }
-        return head;
+       if(head==null) return null;
+       ListNode slow=head;
+       ListNode fast=head;
+       while(fast!=null && fast.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+       }
+       return slow;
     }
 }
