@@ -10,24 +10,28 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
-        Deque<ListNode> arr = new ArrayDeque<>();
+        Stack<ListNode> st= new Stack<>();
+        ListNode slow = head;
+        ListNode fast = head;
+        int count=0;
         ListNode temp=head;
-        int size=0;
-        while(temp!=null){
-            size++;
-            arr.offerLast(temp);
-            temp=temp.next;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            count++;
         }
+        while(slow!=null){
+            st.push(slow);
+            slow=slow.next;
+        }
+
         int min=0;
         int max=0;
-        int mid=arr.size()/2;
-        for(int i=0;i<mid;i++){
-            min=arr.removeFirst().val+arr.removeLast().val;
-            if(max<min){
-                max=min;
-            }
+        for(int i=0;i<count;i++){
+            min=temp.val+st.pop().val;
+            max=Math.max(max,min);
+            temp=temp.next;
         }
         return max;
-        
     }
 }
