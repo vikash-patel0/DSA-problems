@@ -10,24 +10,23 @@
  */
 class Solution {
     public ListNode mergeNodes(ListNode head) {
-        if(head==null || head.next==null || head.next.next==null) return null;
-        ListNode dummy= new ListNode(-1);
-        ListNode res=dummy;
-        int sum=0;
+        if(head==null){
+            return null;
+        }
+        ListNode res=head;
         ListNode temp=head.next;
+        int sum=0;
         while(temp!=null){
-            if(temp.val!=0){
-                sum+=temp.val;
-            }else{
-                ListNode m = new ListNode(sum);
-                res.next=m;
+            if(temp.val==0){
+                res.next=temp;
+                temp.val=sum;
                 res=res.next;
                 sum=0;
+            }else{
+                sum+=temp.val;
             }
             temp=temp.next;
         }
-        return dummy.next;
+        return head.next;
     }
 }
-// sum all elements between zero and store as element.. repeat again after next zero
-//using array size .. count-1 (for zeroes )
