@@ -10,19 +10,28 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        Deque<ListNode> arr=new ArrayDeque<>();
-        ListNode temp=head;
-        while(temp!=null){
-            arr.offerLast(temp);
-            temp=temp.next;
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        boolean flag=true;
-        int size=arr.size()/2;
-        for(int i=0;i<size;i++){
-            if(arr.pollFirst().val!=arr.pollLast().val){
-                flag=false;
+        ListNode prev=null;
+        ListNode curr=slow;
+        while(curr!=null){
+            ListNode nextNode = curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=nextNode;
+        }
+        while(prev!=null){
+            if(head.val!=prev.val){
+                return false;
             }
+            head=head.next;
+            prev=prev.next;
         }
-        return flag;
+        return true;
+
     }
 }
