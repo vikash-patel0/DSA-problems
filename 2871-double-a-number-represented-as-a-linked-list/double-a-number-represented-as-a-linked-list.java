@@ -10,45 +10,25 @@
  */
 class Solution {
     public ListNode doubleIt(ListNode head) {
-        if(head==null || head.val==0) return head;
-        ListNode prev=null;
-        ListNode curr=head;
-        ListNode temp=head.next;
-        while(temp!=null){
-            curr.next=prev;
-            prev=curr;
-            curr=temp;
+        if(head==null) return head;
+        ListNode temp=head;
+        int a=head.val;
+        while(temp.next!=null){
+            if(temp.next.val>=5){
+                temp.val=(temp.val*2+1)%10;
+            }else{
+                temp.val=(temp.val*2)%10;
+            }
             temp=temp.next;
         }
-        curr.next=prev;
-
-
-        ListNode temp1=curr;
-        int carry=0;
-        while(temp1!=null){
-            int x= temp1.val*2+carry;
-            temp1.val=x%10;
-            carry=x/10;
-            temp1=temp1.next;
+        if(temp.next==null){
+            temp.val=(temp.val*2)%10;
         }
-
-
-        ListNode prev2=null;
-        ListNode curr2=curr;
-        ListNode temp2=curr.next;
-        while(temp2!=null){
-            curr2.next=prev2;
-            prev2=curr2;
-            curr2=temp2;
-            temp2=temp2.next;
+        if(a>=5){
+            ListNode newNode= new ListNode(1);
+            newNode.next=head;
+            return newNode;
         }
-        curr2.next=prev2;
-        if(carry!=0){
-        ListNode newNode= new ListNode(carry);
-        newNode.next=curr2;
-        return newNode;
-        }
-
-            return curr2;
+        return head;
     }
 }
