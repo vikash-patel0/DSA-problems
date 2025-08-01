@@ -11,24 +11,24 @@
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
         if(head==null || head.next==null) return head;
-        Deque<Integer> arr= new ArrayDeque<>();
+        int size=0;
         ListNode temp=head;
         while(temp!=null){
-            arr.offerLast(temp.val);
+            size++;
             temp=temp.next;
         }
-        int size=arr.size();
+
         for(int i=0;i<k%size;i++){
-            int x=arr.removeLast();
-            arr.offerFirst(x);
+            ListNode m=head;
+            ListNode temp1=head.next;
+            while(temp1.next!=null){
+                m=m.next;
+                temp1=temp1.next;
+            }
+            m.next=null;
+            temp1.next=head;
+            head=temp1;
         }
-        ListNode dummy= new ListNode(0);
-        ListNode newNode=dummy;
-        for(int i=0;i<size;i++){
-            newNode.next=new ListNode(arr.removeFirst());
-            newNode=newNode.next;
-        }
-        newNode.next=null;
-        return dummy.next;
+        return head;
     }
 }
