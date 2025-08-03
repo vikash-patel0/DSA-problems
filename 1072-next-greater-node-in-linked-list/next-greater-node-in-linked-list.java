@@ -11,30 +11,25 @@
 class Solution {
     public int[] nextLargerNodes(ListNode head) {
 
-        if(head.next==null) return new int[]{0};
+        ArrayList<Integer> arr= new ArrayList<>();
+        Deque<Integer> st = new ArrayDeque<>();
         ListNode temp=head;
-        int count=0;
         while(temp!=null){
-            count++;
+            arr.add(temp.val);
             temp=temp.next;
         }
-        int[] arr= new int[count];
-        ListNode prev=head;
-        for(int i=0;i<count-1;i++){
-        ListNode forw=prev.next;
-            for(int j=i;j<count-1;j++){
-                // if(forw.next!=null){}
-                if(prev.val<forw.val){
-                    arr[i]=forw.val;
-                    break;
-                }else{
-                    arr[i]=0;
-                }
-                    forw=forw.next;
+        int[] res= new int[arr.size()];
+        for(int i=arr.size()-1;i>=0;i--){
+            while(!st.isEmpty() && st.peekLast()<=arr.get(i)){
+                st.removeLast();
             }
-            prev=prev.next;
+            if(st.isEmpty()){
+                res[i]=0;
+            }else{
+                res[i]=st.peekLast();
+            }
+                st.offerLast(arr.get(i));
         }
-        
-        return arr;
+        return res;
     }
 }
