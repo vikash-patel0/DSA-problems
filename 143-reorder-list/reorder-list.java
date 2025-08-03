@@ -41,10 +41,5 @@ class Solution {
             start.next=sec;
             start=sec;
         }
-        // if(count%2!=0){
-        //     start.next=st.pop();
-        //     start=start.next;
-        //     start.next=null;
-        // }
     }
 }
