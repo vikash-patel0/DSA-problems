@@ -10,23 +10,26 @@
  */
 class Solution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
-        ArrayList<Integer> arr= new ArrayList<>();
+        
+        ListNode prev=head;
+        ListNode curr=head.next;
         ArrayList<Integer> crit= new ArrayList<>();
-        ListNode temp=head;
-        while(temp!=null){
-            arr.add(temp.val);
-            temp=temp.next;
-        }
-        for(int i=1;i<arr.size()-1;i++){
-            if(arr.get(i)>arr.get(i-1) && arr.get(i)>arr.get(i+1) || arr.get(i)<arr.get(i-1) && arr.get(i)<arr.get(i+1)){
-                crit.add(i+1);
+        int count=1;
+        while(curr.next!=null){
+            count++;
+            ListNode newNode=curr.next;
+            if(curr.val>prev.val && curr.val>newNode.val || curr.val<prev.val && curr.val<newNode.val){
+                crit.add(count);
             }
+            prev=curr;
+            curr=newNode;
         }
 
         if(crit.size()==0 || crit.size()==1){
             return new int[]{-1,-1};
         }
-        int min=arr.size();
+
+        int min=count;
         for(int i=1;i<crit.size();i++){
             if(min>crit.get(i)-crit.get(i-1)){
                 min=crit.get(i)-crit.get(i-1);
@@ -37,3 +40,8 @@ class Solution {
         return new int[]{min,max};
     }
 }
+
+
+
+// no critcal point 
+//one critical point
