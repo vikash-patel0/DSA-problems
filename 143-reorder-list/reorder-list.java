@@ -10,15 +10,9 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        if(head.next==null) System.out.print("["+head.val+"]");
-        Stack<ListNode> st = new Stack<>();
-        ListNode temp=head;
-        int count=0;
-        while(temp!=null){
-            count++;
-            temp=temp.next;
+        if (head == null || head.next == null || head.next.next==null) {
+            return;
         }
-
         ListNode slow=head;
         ListNode fast=head;
         while(fast!=null && fast.next!=null){
@@ -26,17 +20,23 @@ class Solution {
             fast=fast.next.next;
         }
 
-        ListNode forw=slow.next;
+        ListNode curr=slow.next;
         slow.next=null;
-        while(forw!=null){
-            st.push(forw);
-            forw=forw.next;
+        ListNode prev=null;
+        ListNode temp=curr.next;
+        while(temp!=null){
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+            temp=temp.next;
         }
+        curr.next=prev;
 
         ListNode start=head;
-        while(!st.isEmpty() && start!=null){
+        while( start!=null && curr!=null){
             ListNode sec= start.next;
-            start.next=st.pop();
+            start.next=curr;
+            curr=curr.next;
             start=start.next;
             start.next=sec;
             start=sec;
