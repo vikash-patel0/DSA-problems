@@ -18,21 +18,16 @@ class Solution {
         ListNode temp=head;
         while(temp!=null){
             if(temp.val<x){
-                newNode1.next=new ListNode(temp.val);
+                newNode1.next=temp;
                 newNode1=newNode1.next;
-                temp=temp.next;
             }else{
-                newNode2.next=new ListNode(temp.val);
+                newNode2.next=temp;
                 newNode2=newNode2.next;
-                temp=temp.next;
             }
+            temp=temp.next;
         }
-        if(dummy1.next==null) return dummy2.next;
-        ListNode temp1= dummy1.next;
-        while(temp1.next!=null){
-            temp1=temp1.next;
-        }
-        temp1.next=dummy2.next;
+        newNode2.next=null;
+        newNode1.next=dummy2.next;
         return dummy1.next;
     }
 }
