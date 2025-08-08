@@ -10,46 +10,41 @@
  */
 class Solution {
     public ListNode reverseEvenLengthGroups(ListNode head) {
-        ListNode dummy= new ListNode(0,head);
-        ListNode tail=dummy;
-        int group=0;
-         while (true) {
-            if (tail.next == null) {
-                break;
-            }
-            group++;
+        ListNode dummy = new ListNode(0, head);
+        ListNode tail = dummy;
+        int group = 1;
 
-            ListNode groupIterator = tail;
-            int actualLength = 0;
-            for (int i = 0; i < group && groupIterator.next != null; i++) {
-                groupIterator = groupIterator.next;
-                actualLength++;
-            }
-            if (actualLength % 2 != 0) {
-                tail = groupIterator;
-                continue;
-            }
+        while (tail.next != null) {
 
             ListNode groupStart = tail.next;
-            ListNode nextGroupStart = groupIterator.next;
+            ListNode groupEnd = tail;
+            int count = 0;
 
-            ListNode prev = nextGroupStart;
-            ListNode curr = groupStart;
-
-            while (curr != nextGroupStart) {
-                ListNode next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
+            for (int i = 0; i < group && groupEnd.next != null; i++) {
+                groupEnd = groupEnd.next;
+                count++;
             }
+            ListNode nextGroupStart = groupEnd.next;
 
-            tail.next = groupIterator;
-            tail = groupStart; 
+            if (count % 2 == 0) {
+
+                ListNode prev = nextGroupStart;
+                ListNode curr = groupStart;
+                for (int i = 0; i < count; i++) {
+                    ListNode next = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = next;
+                }
+                tail.next = groupEnd;
+                tail = groupStart;
+            } else {
+                tail = groupEnd;
+            }
+            group++;
         }
         return dummy.next;
-
     }
-
 }
 
 
