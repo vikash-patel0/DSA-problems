@@ -3,9 +3,20 @@ class Solution {
     if(n<=0){
         return false;
     }
-    return (n & (n-1))==0;
+    while(n%2==0){
+        n=n/2;
+    }
+
+    return n==1;
+
     }
 }
+
+//
+
+
+
+
 // firstly n will always be positive
 // n =8 1000
 // n-1 = 7  0111
@@ -15,6 +26,7 @@ class Solution {
 
 
 // logn=xlog2
+
 
 //2
 //3,5,7
