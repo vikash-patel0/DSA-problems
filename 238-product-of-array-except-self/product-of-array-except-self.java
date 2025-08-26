@@ -1,21 +1,23 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] left= new int[nums.length];
-        left[0]=nums[0];
-        int[] right= new int[nums.length];
-        right[nums.length-1]=nums[nums.length-1];
-        for(int i=1;i<nums.length;i++){
-            left[i]=left[i-1]*nums[i];
+        int[] res= new int[nums.length];
+
+        int prefix=1; // in first pass we will just calculate left side multiplication in res arr
+        // prefix taken as 1 because there is not element before first index
+        for(int i=0;i<nums.length;i++){
+            res[i]=prefix;
+            prefix*=nums[i];        
         }
-        for(int i=nums.length-2;i>=0;i--){
-            right[i]=right[i+1]*nums[i];
+
+        int suffix=1; // in second pass we will just calculate right side multiplication in res 
+        // suffix taken as 1 because there is not element after last index
+        for(int i=nums.length-1;i>=0;i--){
+            res[i]*=suffix;
+            suffix*=nums[i];
         }
-        
-        nums[0]=right[1];
-        nums[nums.length-1]=left[nums.length-2];
-        for(int i=1;i<nums.length-1;i++){
-            nums[i]=left[i-1]*right[i+1];
-        }
-        return nums;
+
+        return res;
     }
 }
+
+// O(n) time and O(1)
