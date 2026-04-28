@@ -13,16 +13,16 @@ class Solution {
 
         Collections.sort(voExist);
 
-        String res="";
+        StringBuilder res = new StringBuilder();
         int count=0;
         for(char ch:s.toCharArray()){
             if(voList.contains(ch)){
-                res+=String.valueOf(voExist.get(count++));
+                res.append(voExist.get(count++));
             }else{
-                res+=String.valueOf(ch);
+                res.append(ch);
             }
         }
 
-        return res;
+        return res.toString();
     }
 }
